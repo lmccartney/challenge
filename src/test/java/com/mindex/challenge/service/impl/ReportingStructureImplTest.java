@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ReportingStructureTest {
+public class ReportingStructureImplTest extends ServicesTestHelper {
 
     private String reportingStructureUrl;
     private String employeeIdUrl;
@@ -41,19 +41,17 @@ public class ReportingStructureTest {
     public void testRead(){
         Employee readEmployee = restTemplate.getForEntity(employeeIdUrl, Employee.class, "16a596ae-edd3-4847-99fe-c4518e82c86f").getBody();
 
+        // Make sure we have a good employee
         assertNotNull(readEmployee);
 
         ReportingStructure reportingStructure = restTemplate.getForEntity(reportingStructureUrl, ReportingStructure.class, readEmployee.getEmployeeId()).getBody();
 
+        // Make sure we'v returned a proper ReportingStructure
         assertNotNull(reportingStructure);
 
+        // Verify that the employee is equivalent to what is provided by the employee endpoint
         assertEmployeeEquivalence(readEmployee, reportingStructure.getEmployee());
+        // Validate the number of reports given.
         assertEquals(reportingStructure.getNumberOfReports(), 4);
-    }
-    private static void assertEmployeeEquivalence(Employee expected, Employee actual) {
-        assertEquals(expected.getFirstName(), actual.getFirstName());
-        assertEquals(expected.getLastName(), actual.getLastName());
-        assertEquals(expected.getDepartment(), actual.getDepartment());
-        assertEquals(expected.getPosition(), actual.getPosition());
     }
 }
