@@ -44,8 +44,8 @@ public class CompensationServiceImplTest extends ServicesTestHelper {
     @Before
     public void setup() {
         compensationUrl = "http://localhost:" + port + "/compensation";
-        compensationIdUrl = "http://localhost:" + port + "/compensation/{id}";
         employeeIdUrl = "http://localhost:" + port + "/employee/{id}";
+        compensationIdUrl = employeeIdUrl + "/compensation";
     }
 
     @Test
