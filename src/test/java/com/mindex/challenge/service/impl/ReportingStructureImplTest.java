@@ -33,8 +33,8 @@ public class ReportingStructureImplTest extends ServicesTestHelper {
 
     @Before
     public void setup() {
-        reportingStructureUrl = "http://localhost:" + port + "/reporting-structure/{id}";
         employeeIdUrl = "http://localhost:" + port + "/employee/{id}";
+        reportingStructureUrl = employeeIdUrl + "/reporting-structure";
     }
 
     @Test
